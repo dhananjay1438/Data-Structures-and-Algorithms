@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+SIZE	linear_probing_NO_replacement.cpp	5;"	d	file:
+SIZE	linear_probing_WITH_replacement.cpp	4;"	d	file:
+arr	linear_probing_NO_replacement.cpp	/^  std::array<int, SIZE> arr;$/;"	m	class:hashtable	file:
+arr	linear_probing_WITH_replacement.cpp	/^  std::array<int, SIZE> arr;$/;"	m	class:hashtable	file:
+display	linear_probing_NO_replacement.cpp	/^void hashtable::display() {$/;"	f	class:hashtable
+find_empty_index_from	linear_probing_NO_replacement.cpp	/^int hashtable::find_empty_index_from(int element) {$/;"	f	class:hashtable
+hash	linear_probing_NO_replacement.cpp	/^int hashtable::hash(int element) { return element % 10; }$/;"	f	class:hashtable
+hashtable	linear_probing_NO_replacement.cpp	/^class hashtable {$/;"	c	file:
+hashtable	linear_probing_NO_replacement.cpp	/^hashtable::hashtable() { std::fill_n(arr.begin(), SIZE, -1); }$/;"	f	class:hashtable
+hashtable	linear_probing_WITH_replacement.cpp	/^class hashtable {$/;"	c	file:
+insert	linear_probing_NO_replacement.cpp	/^void hashtable::insert(int element) {$/;"	f	class:hashtable
+main	linear_probing_NO_replacement.cpp	/^int main(void) {$/;"	f
+main	linear_probing_WITH_replacement.cpp	/^int main() { return 0; }$/;"	f
+remove	linear_probing_NO_replacement.cpp	/^void hashtable::remove(int element) {$/;"	f	class:hashtable
+search	linear_probing_NO_replacement.cpp	/^void hashtable::search(int element) {$/;"	f	class:hashtable
