@@ -21,7 +21,6 @@ private:
   node *_left_rotate(node *);
   node *_right_rotate(node *);
   node *_inorder_successor(node *);
-  node *_right_subtree_min(node *);
   void _postorder(node *);
 
 protected:
@@ -33,13 +32,6 @@ public:
   void remove(int);
   void postorder();
 };
-
-node *AVL::_right_subtree_min(node *traverse) {
-  while (traverse->left) {
-    traverse = traverse->left;
-  }
-  return traverse;
-}
 
 void AVL::postorder() { _postorder(root); }
 
@@ -151,7 +143,7 @@ node *AVL::_remove(node *root, int data) {
       delete root;
       return temp;
     } else {
-      node *right_max = _right_subtree_min(root->right);
+      node *right_max = _inorder_successor(root->right);
       root->data = right_max->data;
       root->right = _remove(root->right, root->data);
     }
