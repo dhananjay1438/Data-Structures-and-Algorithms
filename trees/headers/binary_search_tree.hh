@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <vector>
 
 class Node {
@@ -13,16 +14,16 @@ template <class T> class BST {
 private:
   std::vector<int> traversal;
 
-  T _insert(T, int);
-  T _remove(T, int);
-  T _inorder_successor(T);
+  T *_insert(T *, int);
+  T *_remove(T *, int);
+  T *_inorder_successor(T *);
   int _height(T *);
   void _inorder(T *);
   void _postorder(T *);
   void _preorder(T *);
 
 protected:
-  T root;
+  T *root;
 
 public:
   BST();
@@ -33,4 +34,4 @@ public:
   std::vector<int> postorder();
   std::vector<int> preorder();
 };
-#include "bst_templates_implemention.tpp"
+#include "bst_templates_implemention.cpp"

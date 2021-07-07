@@ -24,7 +24,7 @@ template <class T> std::vector<int> BST<T>::preorder() {
   return traversal;
 }
 
-template <class T> T BST<T>::_insert(T root, int data) {
+template <class T> T *BST<T>::_insert(T *root, int data) {
   if (root == nullptr) {
     root = new T(data);
     return root;
@@ -36,7 +36,8 @@ template <class T> T BST<T>::_insert(T root, int data) {
   }
   return root;
 }
-template <class T> T BST<T>::_remove(T root, int data) {
+
+template <class T> T *BST<T>::_remove(T *root, int data) {
 
   if (root == NULL) {
     return NULL;
@@ -48,16 +49,16 @@ template <class T> T BST<T>::_remove(T root, int data) {
   } else {
 
     if (root->left == NULL) {
-      T temp = root->right;
+      T *temp = root->right;
       delete root;
       return temp;
 
     } else if (root->right == NULL) {
-      T temp = root->left;
+      T *temp = root->left;
       delete root;
       return temp;
     } else {
-      T right_max = _inorder_successor(root->right);
+      T *right_max = _inorder_successor(root->right);
       root->data = right_max->data;
       root->right = _remove(root->right, root->data);
     }
@@ -65,13 +66,7 @@ template <class T> T BST<T>::_remove(T root, int data) {
   return root;
 }
 
-template <class T> T BST<T>::_inorder_successor(T root) {
-  while (root->left) {
-    root = root->left;
-  }
-  return root;
-}
-template <class T> int BST<T>::_height(T root) {
+template <class T> int BST<T>::_height(T *root) {
 
   if (root == NULL) {
     return -1;
@@ -82,7 +77,13 @@ template <class T> int BST<T>::_height(T root) {
   return (std::max(lheight, rheight) + 1);
 }
 
-template <class T> void BST<T>::_inorder(T root) {
+template <class T> T *BST<T>::_inorder_successor(T *root) {
+  while (root->left) {
+    root = root->left;
+  }
+  return root;
+}
+template <class T> void BST<T>::_inorder(T *root) {
   if (root == nullptr) {
     return;
   }
@@ -92,7 +93,7 @@ template <class T> void BST<T>::_inorder(T root) {
   _inorder(root->right);
 }
 
-template <class T> void BST<T>::_postorder(T root) {
+template <class T> void BST<T>::_postorder(T *root) {
   if (root == nullptr) {
     return;
   }
@@ -102,7 +103,7 @@ template <class T> void BST<T>::_postorder(T root) {
   traversal.push_back(root->data);
 }
 
-template <class T> void BST<T>::_preorder(T root) {
+template <class T> void BST<T>::_preorder(T *root) {
   if (root == nullptr) {
     return;
   }
