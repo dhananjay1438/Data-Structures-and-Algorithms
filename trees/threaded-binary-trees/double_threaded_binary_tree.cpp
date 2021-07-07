@@ -2,7 +2,7 @@
 #include <iostream>
 
 class ThreadedNode {
-protected:
+public:
   ThreadedNode *left;
   bool lthread;
   int data;
@@ -28,21 +28,24 @@ ThreadedNode::ThreadedNode(int data)
 // void ThreadedBinaryTree::create_threaded_tree() {}
 
 int main(void) {
-  BST<ThreadedNode *> bst;
+  BST<ThreadedNode> bst;
 
   bst.insert(50);
-  bst.insert(40);
-  bst.insert(60);
-  std::vector<int> arr = bst.inorder();
+  bst.insert(30);
+  bst.insert(100);
+  bst.insert(20);
 
-  for (auto &x : arr) {
+  std::vector<int> vec = bst.inorder();
+
+  for (auto &x : vec) {
     std::cout << x << " ";
   }
   std::cout << "\n";
-  arr = bst.postorder();
 
-  for (auto &x : arr) {
+  vec = bst.postorder();
+  for (auto &x : vec) {
     std::cout << x << " ";
   }
+
   return 0;
 }
