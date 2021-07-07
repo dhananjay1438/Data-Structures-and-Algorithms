@@ -1,48 +1,60 @@
+#include "../headers/binary_search_tree.hh"
 #include <iostream>
 
 typedef struct node {
-	struct node* left;
-	int data;
-	struct node* right;
-	node(int);
-}Node;
+  struct node *left;
+  int data;
+  struct node *right;
+  node(int);
+} Node;
 
-node::node(int data): left(nullptr), data(data), right(nullptr) {
+node::node(int data) : left(nullptr), data(data), right(nullptr) {}
 
+class MyBST : public BST<Node> {
+  BST<Node> bst;
+  void _mirror(Node *);
+
+public:
+  void mirror();
+};
+
+void MyBST::mirror() { _mirror(root); }
+void MyBST::_mirror(Node *root) {
+  if (root == nullptr) {
+    return;
+  }
+  Node *temp = root->left;
+
+  root->left = root->right;
+  root->right = temp;
+
+  _mirror(root->left);
+  _mirror(root->right);
 }
-	
-void mirror(Node* root) {
-	if (root == nullptr) {
-		return;
-	}
-	Node* temp = root->left;
 
-	root->left = root->right;
-	root->right = temp;
+int main(void) {
 
-	mirror(root->left);
-	mirror(root->right);
-	
-}
+  MyBST bst;
+  bst.insert(4);
+  bst.insert(2);
+  bst.insert(1);
+  bst.insert(3);
+  bst.insert(7);
+  bst.insert(6);
+  bst.insert(9);
 
-int main(void) { 
+  std::vector<int> arr;
+  arr = bst.inorder();
 
-	Node* root = new node(4);
+  for (auto &x : arr) {
+    std::cout << x << " ";
+  }
+  bst.mirror();
+  std::cout << "\n";
 
-	root->left = new node(2);
-	root->left->left = new node(1);
-	root->left->right = new node(3);
-
-	root->right = new node(7);
-	root->right->left = new node(6);
-	root->right->right = new node(9);
-
-	std::cout << root->left->data << " ";
-	std::cout << root->right->data << " ";
-
-	mirror(root);
-	std::cout << root->left->data << " ";
-	std::cout << root->right->data << " ";
-	
-	return 0; 
+  arr = bst.inorder();
+  for (auto &x : arr) {
+    std::cout << x << " ";
+  }
+  return 0;
 }
