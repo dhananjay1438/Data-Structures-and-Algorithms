@@ -1,15 +1,5 @@
 #pragma once
-#include <iostream>
 #include <vector>
-
-class Node {
-public:
-  Node *left;
-  int data;
-  Node *right;
-  Node(int);
-};
-
 template <class T> class BST {
 private:
   std::vector<int> traversal;
