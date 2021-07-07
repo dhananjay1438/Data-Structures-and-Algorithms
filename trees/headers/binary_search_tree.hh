@@ -24,4 +24,4 @@ public:
   std::vector<int> postorder();
   std::vector<int> preorder();
 };
-#include "bst_templates_implemention.cpp"
+#include "bst_templates_implemention.tpp"
