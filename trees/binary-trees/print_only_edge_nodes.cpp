@@ -1,3 +1,5 @@
+// Printing edge (first and last) nodes of each level in tree
+// Wrong for 50,40,30 output should be 50,40,30 but prints only 50,40
 #include "../headers/binary_search_tree.hh"
 #include <iostream>
 #include <queue>
@@ -56,15 +58,11 @@ void MyBST::_print_edge_nodes(node *root) {
 int main(void) {
 
   MyBST bst;
+
   bst.insert(50);
   bst.insert(40);
-  bst.insert(45);
   bst.insert(30);
-  bst.insert(35);
-  bst.insert(70);
-  bst.insert(65);
-  bst.insert(80);
-
+  bst.insert(20);
   bst.print_edge_nodes();
 
   return 0;

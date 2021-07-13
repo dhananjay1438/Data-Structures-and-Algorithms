@@ -1,86 +1,85 @@
+// Runs only with c++17 and above
+#include <array>
 #include <iostream>
-#include <vector>
+#include <variant>
 
-#define SIZE 5
+#define SIZE 3
 
-// Circular Queue
-class CircularQueue {
-    std::vector<int> queue;
-    int front = 0;
-    int rear = -1;
+template <class T> class Queue {
+private:
+  int _front;
+  int _rear;
+  std::array<T, SIZE> queue;
 
 public:
-    CircularQueue()
-        : queue(SIZE)
-    {
-    }
-    bool is_empty();
-    bool is_full();
-    void enqueue(int);
-    int dequeue();
-    void display();
+  Queue();
+  T front();
+  bool empty();
+  bool full();
+  void enqueue(T);
+  void dequeue();
+  void print();
 };
 
-bool CircularQueue::is_full() {
-    if (rear == SIZE - 1  && front == 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
+template <class T> Queue<T>::Queue() : _front(-1), _rear(-1) {}
+
+template <class T> T Queue<T>::front() { return queue.at(_front); }
+
+template <class T> bool Queue<T>::empty() {
+  if (_front == -1) {
+    return true;
+  }
+  return false;
 }
-void CircularQueue::enqueue(int element)
-{
-    if (is_full()) {
-        std::cout << "Queue full\n";
-        return;
-    }
-    std::cout << "rear = " << rear << " front = " << front << "\n";
-    if (rear == SIZE-1  && front != 0) {
-        rear = 0;
-        std::cout << "1st cond\n";
-    }
-    else if (front == rear + 1) {
-        front = 0;
-        rear = -1;
-        std::cout << "2st cond\n";
-    }
-    rear++;
-    queue.at(rear)= element;
+template <class T> bool Queue<T>::full() {
+  if (_rear == SIZE - 1 && _front == 0) {
+    return true;
+  } else if (_front == _rear + 1) {
+    return true;
+  }
+  return false;
 }
-int CircularQueue::dequeue()
-{
 
-    return -1;
+template <class T> void Queue<T>::enqueue(T element) {
+  if (full()) {
+    std::cout << "Queue is full!\n";
+    return;
+  }
+  if (_rear == -1) {
+    _rear = _front = 0;
+    queue.at(_rear) = element;
+  } else {
+    _rear = (_rear + 1) % SIZE;
+    queue.at(_rear) = element;
+  }
 }
-void CircularQueue::display()
-{
-    for (auto &x: queue) {
-        std::cout << x << " ";
-    }
+
+template <class T> void Queue<T>::dequeue() {
+  if (empty()) {
+    std::cout << "Queue is empty!\n";
+    return;
+  }
+  if (_front == _rear) {
+    _front = _rear = -1;
+  } else {
+    _front = (_front + 1) % SIZE;
+  }
 }
-int main(void)
-{
+template <class T> void Queue<T>::print() {
+  for (auto x : queue) {
+    std::cout << x << " ";
+  }
+  std::cout << "\n";
+}
 
-    CircularQueue queue;
+int main(void) {
+  Queue<std::variant<int, std::string>> q;
 
-    queue.enqueue(10);
-    queue.enqueue(20);
-    queue.enqueue(10);
-    queue.enqueue(20);
+  q.enqueue(50);
+  q.enqueue("some string");
 
-
-//	std::cout << queue.dequeue() << "\n";
-//	std::cout << queue.dequeue() << "\n";
-
-//	std::cout << queue.dequeue() << "\n";
-//	std::cout << queue.dequeue() << "\n";
-
-    queue.enqueue(200);
-    queue.enqueue(300);
-
-    std::cout << "Display: ";
-    queue.display();
-
-    return 0;
+  std::visit([](const auto &x) { std::cout << x; }, q.front());
+  q.dequeue();
+  std::visit([](const auto &x) { std::cout << x; }, q.front());
+  return 0;
 }
