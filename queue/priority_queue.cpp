@@ -116,4 +116,9 @@ bool PriorityQueue::empty() {
 int main(void) {
   PriorityQueue q;
   q.push(100);
+  q.push(30);
+  q.push(10);
+  q.push(50);
+
+  std::cout << q.pop();
 }
