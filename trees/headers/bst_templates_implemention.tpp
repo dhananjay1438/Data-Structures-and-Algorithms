@@ -1,3 +1,5 @@
+node::node(int data) : left(nullptr), data(data), right(nullptr) {}
+
 template <class T> BST<T>::BST() : root(nullptr) {}
 
 template <class T> void BST<T>::insert(int data) { root = _insert(root, data); }

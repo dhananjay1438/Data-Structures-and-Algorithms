@@ -1,13 +1,12 @@
 #pragma once
 #include <vector>
 struct node {
-	struct node* left;
-	int data;
-	struct node* right;
-	node(int);
+  struct node *left;
+  int data;
+  struct node *right;
+  node(int);
 };
 
-node::node(int data) : left(nullptr), data(data), right(nullptr){}
 template <class T = node> class BST {
 private:
   std::vector<int> traversal;
