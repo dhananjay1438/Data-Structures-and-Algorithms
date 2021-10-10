@@ -2,11 +2,11 @@
 #include <iostream>
 #define SIZE 11
 
-void max_heapify(std::array<int, SIZE> &arr, int i) {
+void max_heapify(std::array<unsigned, SIZE> &arr, unsigned i) {
 
-  int largest = i;
-  int left = i * 2;
-  int right = (i * 2) + 1;
+  unsigned largest = i;
+  unsigned left = i * 2;
+  unsigned right = (i * 2) + 1;
 
   if ((left < SIZE) && arr.at(left) > arr.at(i)) {
     largest = left;
@@ -18,24 +18,26 @@ void max_heapify(std::array<int, SIZE> &arr, int i) {
   }
 
   if (largest != i) {
-    int temp = arr.at(largest);
+    unsigned temp = arr.at(largest);
     arr[largest] = arr[i];
     arr[i] = temp;
     max_heapify(arr, largest);
   }
 }
 
-void build_heap(std::array<int, SIZE> &arr) {
-  for (int i = (arr.size() / 2); i > 0; i--) {
+// This looks stupid actually 5 Oct 2021 21:53
+// Extra time complexity for each addition of element into heap
+void build_heap(std::array<unsigned, SIZE> &arr) {
+  for (unsigned i = static_cast<unsigned>((arr.size() / 2)); i > 0; i--) {
     max_heapify(arr, i);
   }
 }
 
 int main(void) {
 
-  std::array<int, SIZE> arr{0, 1, 2, 3, 4, 7, 8, 9, 10, 14, 16};
+  std::array<unsigned, SIZE> arr{0, 1, 2, 3, 4, 7, 8, 9, 10, 14, 16};
   build_heap(arr);
-  for (int i = 1; i <= 10; i++) {
+  for (unsigned i = 1; i <= 10; i++) {
 
     std::cout << arr[i] << " ";
   }

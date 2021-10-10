@@ -13,7 +13,7 @@ class Graph {
 
 public:
   void show_graph();
-  void connect(int, int);
+  void connect(unsigned int, unsigned int);
   void dfs_iterative(int);
   void dfs_recursive(int);
   void bfs_iterative(int);
@@ -26,7 +26,7 @@ void Graph::bfs_iterative(int x) {
   queue.push(x);
 
   while (!queue.empty()) {
-    int vertex = queue.front();
+    size_t vertex = static_cast<size_t>(queue.front());
     if (b_visited[vertex] == false) {
       b_visited[vertex] = true;
       std::cout << vertex << " ";
@@ -34,16 +34,15 @@ void Graph::bfs_iterative(int x) {
     queue.pop();
     for (size_t i = 0; i < graph.size(); i++) {
       if (b_visited[i] == false && graph[vertex][i] == 1) {
-        queue.push(i);
+        queue.push(static_cast<int>(i));
       }
     }
   }
 }
 
-void Graph::connect(int x, int y) {
+void Graph::connect(unsigned int x, unsigned int y) {
   // Undirected graph
-  assert(x <= static_cast<int>(graph.size()) &&
-         y <= static_cast<int>(graph.size()));
+  assert(x <= graph.size() && y <= graph.size());
   graph.at(x).at(y) = 1;
   graph.at(y).at(x) = 1;
 }
@@ -59,12 +58,12 @@ void Graph::show_graph() {
 
 void Graph::dfs_recursive(int x) {
 
-  b_visited[x] = true;
+  b_visited[static_cast<size_t>(x)] = true;
   std::cout << x << " ";
 
   for (size_t i = 0; i < graph.size(); i++) {
-    if (b_visited[i] == false && graph[x][i] == 1) {
-      dfs_recursive(i);
+    if (b_visited[i] == false && graph[static_cast<size_t>(x)][i] == 1) {
+      dfs_recursive(static_cast<int>(i));
     }
   }
 }
@@ -74,12 +73,12 @@ void Graph::dfs_iterative(int x) {
   std::stack<int> stack;
   std::vector<std::pair<int, int>> visited;
 
-  std::vector<bool> b_visited(graph.size(), false);
+  std::vector<bool> temp_bool_visited(graph.size(), false);
 
   stack.push(x);
 
   while (!stack.empty()) {
-    auto current = stack.top();
+    size_t current = static_cast<size_t>(stack.top());
     stack.pop();
     if (b_visited.at(current) == false) {
       std::cout << current << " ";
@@ -88,7 +87,7 @@ void Graph::dfs_iterative(int x) {
 
     for (size_t i = 0; i < graph.size(); i++) {
       if (graph.at(current).at(i) == 1 && b_visited.at(i) == false) {
-        stack.push(i);
+        stack.push(static_cast<int>(i));
       }
     }
   }
@@ -106,9 +105,6 @@ int main(void) {
   g.connect(2, 3);
   g.connect(3, 4);
   g.show_graph();
-
-  //  g.dfs_iterative(0);
-  //  g.dfs_recursive(0);
 
   g.dfs_iterative(0);
   return 0;

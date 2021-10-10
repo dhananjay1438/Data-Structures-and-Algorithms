@@ -1,29 +1,20 @@
 #include "../headers/binary_search_tree.hh"
 #include <iostream>
 
-typedef struct node {
-  struct node *left;
-  int data;
-  struct node *right;
-  node(int);
-} Node;
-
-node::node(int data) : left(nullptr), data(data), right(nullptr) {}
-
-class MyBST : public BST<Node> {
-  BST<Node> bst;
-  void _mirror(Node *);
+class MyBST : public BST<node> {
+  BST<node> bst;
+  void _mirror(node *);
 
 public:
   void mirror();
 };
 
 void MyBST::mirror() { _mirror(root); }
-void MyBST::_mirror(Node *root) {
+void MyBST::_mirror(node *root) {
   if (root == nullptr) {
     return;
   }
-  Node *temp = root->left;
+  node *temp = root->left;
 
   root->left = root->right;
   root->right = temp;
